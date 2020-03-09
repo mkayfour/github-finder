@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export class Search extends Component {
   state = {
@@ -13,10 +14,17 @@ export class Search extends Component {
     this.setState({ text: "" });
   };
 
+  static propTypes = {
+    searchUsers: PropTypes.func.isRequired,
+    clearUsers: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired
+  };
+
   render() {
+    const { showClear, clearUsers } = this.props;
     return (
       <div>
-        <form className="form" onSubmit={this.onSubmit}>
+        <form className="form" onSubmit={this.onSubmit} onReset={clearUsers}>
           <input
             type="text"
             name="text"
@@ -30,6 +38,12 @@ export class Search extends Component {
             className="btn btn-dark btn-block"
           />
         </form>
+        {showClear && (
+          <button t className="btn btn-light btn-block" onClick={clearUsers}>
+            {" "}
+            Clear{" "}
+          </button>
+        )}
       </div>
     );
   }
