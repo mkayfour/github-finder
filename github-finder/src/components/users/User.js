@@ -2,20 +2,24 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
+import Repos from "../repos/Repos";
 
 export class User extends Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
-    console.log("");
+    this.props.getUserRepos(this.props.match.params.login);
   }
 
-  static propTypes = {};
+  static propTypes = {
+    getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired
+  };
+
   render() {
     const {
       name,
       company,
       avatar_url,
-      url,
       location,
       bio,
       blog,
@@ -28,14 +32,11 @@ export class User extends Component {
       hireable
     } = this.props.user;
 
-    const { loading } = this.props;
-
-    // if (loading) {
-    //   <Spinner />;
-    // }
+    const { loading, repos } = this.props;
 
     return (
       <Fragment>
+        {loading && <Spinner />}
         <Link to="/" className="btn btn-light">
           Back to search
         </Link>
@@ -51,7 +52,7 @@ export class User extends Component {
               src={avatar_url}
               alt="r"
               className="round-img"
-              style={{ width: "150px" }}
+              style={{ width: "200px" }}
             />
             <h1> {name}</h1>
             <p>Location: {location}</p>
@@ -103,6 +104,7 @@ export class User extends Component {
           </div>
           <div className="badge badge-dark">Public Gists: {public_gists}</div>
         </div>
+        <Repos repos={repos} />
       </Fragment>
     );
   }
