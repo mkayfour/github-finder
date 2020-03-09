@@ -21,6 +21,19 @@ const GithubState = props => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
+  // const onFirstLoad = () => {
+  //   setLoading(true);
+
+  //   const res = axios.get(
+  //     `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+  //   );
+
+  //   dispatch({
+  //     type: GET_USER,
+  //     payload: res.data
+  //   });
+  // };
+
   // Search Users
   // search github users
   const searchUsers = async text => {
@@ -89,6 +102,7 @@ const GithubState = props => {
         clearUsers,
         getUser,
         getUserRepos
+        // onFirstLoad
       }}
     >
       {props.children}

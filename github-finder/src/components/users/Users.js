@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserItem from "./UserItem";
 import Spinner from "../layout/Spinner";
 import GithubContext from "../../context/github/githubContext";
 
 const Users = () => {
   const githubContext = useContext(GithubContext);
+
+  useEffect(
+    () => {
+      githubContext.clearUsers();
+    },
+    //eslint-disable-next-line
+    []
+  );
 
   const { loading, users } = githubContext;
 
